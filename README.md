@@ -40,8 +40,12 @@ RiftMind is a professional-grade League of Legends drafting assistant powered by
 
 4.  Start the development server:
     ```bash
+    npm run build
+    ```
+    ```bash
     npm start
     ```
+    
 
 ## 🔌 GRID API Configuration
 
