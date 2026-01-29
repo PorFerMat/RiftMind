@@ -1,3 +1,4 @@
+
 import { DraftSlot, Recommendation, Champion, SimulationConfig, PatchStats, LiveGameResult } from "../types";
 import { ALL_CHAMPIONS } from "../constants";
 
@@ -10,7 +11,8 @@ export interface GridStats {
 
 // --- CONFIGURATION ---
 // SECURITY NOTE: API Keys are loaded from environment variables.
-// Create a .env file in the root directory with REACT_APP_GRID_API_KEY=your_key_here
+// 1. Create a .env file in the root directory.
+// 2. Add: REACT_APP_GRID_API_KEY=your_key_here
 const GRID_API_KEY = process.env.REACT_APP_GRID_API_KEY || ""; 
 const LIVE_GAME_ENDPOINT = "https://api.grid.gg/live-data-feed/v1"; // Placeholder URL
 
@@ -59,13 +61,25 @@ export const getPatchData = async (patchVersion: string): Promise<PatchStats[]> 
 // This function simulates checking a live game endpoint.
 // In a real app, you would fetch(LIVE_GAME_ENDPOINT) using the API key.
 export const checkLiveGameStatus = async (): Promise<LiveGameResult> => {
-   // PLACEHOLDER: logic to fetch from real API
-   // const response = await fetch(`${LIVE_GAME_ENDPOINT}/match-state`, { headers: { 'x-api-key': GRID_API_KEY } });
-   // const data = await response.json();
-   
-   // SIMULATION FOR DEMO:
-   // We return 'active: true' usually, but you can toggle logic here to test reset.
-   // Returning 'active: false' with a winner triggers the reset in App.tsx.
+   // --- REAL IMPLEMENTATION EXAMPLE ---
+   /*
+   if (GRID_API_KEY) {
+      try {
+        const response = await fetch(`${LIVE_GAME_ENDPOINT}/match-state`, { headers: { 'x-api-key': GRID_API_KEY } });
+        const data = await response.json();
+        // Assuming data structure has { status: 'completed', winner: 'blue' }
+        if (data.status === 'completed') {
+            return { active: false, winner: data.winner };
+        }
+        return { active: true };
+      } catch (e) { console.error("Grid API Error", e); }
+   }
+   */
+
+   // --- SIMULATION FOR DEMO ---
+   // To TEST the Win/Lose logic manually:
+   // Change 'active' to false and set a 'winner'.
+   // Example: return { active: false, winner: 'blue' };
    
    return { active: true }; 
 };

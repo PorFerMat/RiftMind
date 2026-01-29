@@ -1,5 +1,6 @@
+
 {
   "name": "RiftMind - AI LoL Draft Assistant",
-  "description": "A professional-grade AI co-pilot for League of Legends drafting phases, featuring real-time win probability, synergy analysis, and opponent exploitation modeling powered by Gemini.",
+  "description": "A professional-grade AI co-pilot for League of Legends drafting phases, featuring real-time win probability, synergy analysis, and opponent exploitation modeling powered by a custom Python Neural Engine.",
   "requestFramePermissions": []
 }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface Props {
@@ -21,14 +22,13 @@ const ArchitectureModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <section>
             <h3 className="text-xl font-bold text-white mb-3">1. Technical Approach</h3>
             <p className="mb-2">
-              <strong>Hybrid Neuro-Symbolic Model:</strong> We recommend a hybrid approach combining a 
-              <strong> Transformer-based Sequence Model</strong> (like GPT architecture adapted for draft sequences) for intuition and pattern recognition, 
-              paired with a <strong>Constraint Satisfaction Engine</strong>.
+              <strong>Python-Based Probability Engine:</strong> RiftMind moves away from generic LLMs to use a deterministic 
+              <strong> mathematical modeling engine</strong> built with NumPy.
             </p>
             <ul className="list-disc pl-5 space-y-1 text-sm text-gray-400">
-              <li><strong>Why Transformer?</strong> Drafting is sequential. The meaning of a pick depends heavily on previous picks. Transformers excel at attending to the entire context window (current draft state) to predict the next token (champion).</li>
-              <li><strong>Why Symbolic Constraints?</strong> Pure deep learning models can hallucinate invalid compositions. A rules-based layer filters output for validity (e.g., "Must pick Top laner").</li>
-              <li><strong>Inference:</strong> We leverage the Gemini API as a proxy for this reasoning engine in this prototype to simulate high-level strategic analysis.</li>
+              <li><strong>Matrix Synergy:</strong> Calculates composition strength based on hard-coded weighted relationships between champions (e.g., Yasuo + Malphite).</li>
+              <li><strong>Predictive Modeling:</strong> Uses a probabilistic role-fill algorithm to guess the opponent's next move based on their missing lanes (Top/Jungle/Mid/Bot/Sup).</li>
+              <li><strong>Execution:</strong> The backend is a high-performance <strong>FastAPI</strong> server that processes draft state tensors in milliseconds.</li>
             </ul>
           </section>
 

@@ -141,7 +141,7 @@ const App: React.FC = () => {
           <div className="w-9 h-9 bg-gradient-to-br from-hex-blue to-blue-900 rounded-full flex items-center justify-center font-bold text-white shadow-[0_0_10px_#0AC8B9]">R</div>
           <div className="flex flex-col cursor-pointer" onClick={() => setView('draft')}>
             <h1 className="text-xl font-bold tracking-tight text-white leading-none">Rift<span className="text-hex-blue">Mind</span></h1>
-            <span className="text-[10px] text-hex-gold font-bold tracking-widest uppercase mt-0.5">Python Engine Active</span>
+            <span className="text-[10px] text-hex-gold font-bold tracking-widest uppercase mt-0.5">Neural Link: ONLINE</span>
           </div>
         </div>
         <div className="flex items-center gap-6">
