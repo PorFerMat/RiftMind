@@ -5,20 +5,31 @@ import { getHeuristicAnalysis } from "./gridService"; // Import local logic for 
 const API_URL = "http://localhost:8000";
 
 export interface AnalysisResponse {
-  blue_win_probability: number;
-  blue_synergy_score: number;
-  red_synergy_score: number;
-  predictions: {
-    champion: string;
-    confidence: number;
-    reason: string;
-  }[];
-  alerts: {
-    champion: string;
-    type: string;
-    message: string;
-  }[];
+    blue_win_probability: number;
+    blue_synergy_score: number;
+    red_synergy_score: number;
+    predictions: {
+        champion: string;
+        confidence: number;
+        reason: string;
+    }[];
+    alerts: {
+        champion: string;
+        type: string;
+        message: string;
+    }[];
 }
+
+// Check if Python backend is reachable
+export const checkBackendHealth = async (): Promise<boolean> => {
+    try {
+        const res = await fetch(`${API_URL}/`);
+        const data = await res.json();
+        return data.status === "RiftMind Core Online";
+    } catch (e) {
+        return false;
+    }
+};
 
 export const fetchAnalysis = async (slots: DraftSlot[]): Promise<AnalysisResponse> => {
     try {
@@ -47,19 +58,19 @@ export const fetchAnalysis = async (slots: DraftSlot[]): Promise<AnalysisRespons
         return await response.json();
     } catch (error) {
         console.warn("RiftMind Backend unavailable. Switching to offline heuristic mode.");
-        
+
         // --- FALLBACK: CLIENT-SIDE CALCULATION ---
         // We use the existing logic in gridService to approximate the Python engine
         const config: SimulationConfig = { opponentStyle: 'Teamfight', patchVersion: '14.2' };
         const localAnalysis = getHeuristicAnalysis(slots, config);
-        
+
         // Generate pseudo-predictions for the fallback so UI doesn't break
         const predictions = [];
         if (slots.some(s => s.champion)) {
-             predictions.push(
-                 { champion: "Maokai", confidence: 75, reason: "Offline Mode: Meta Tank" },
-                 { champion: "Varus", confidence: 60, reason: "Offline Mode: Flex Pick" }
-             );
+            predictions.push(
+                { champion: "Maokai", confidence: 75, reason: "Offline Mode: Meta Tank" },
+                { champion: "Varus", confidence: 60, reason: "Offline Mode: Flex Pick" }
+            );
         }
 
         // Map local threats to alerts format
@@ -72,7 +83,7 @@ export const fetchAnalysis = async (slots: DraftSlot[]): Promise<AnalysisRespons
         return {
             blue_win_probability: localAnalysis.blueWinProbability,
             // Create synthetic synergy scores from win probability
-            blue_synergy_score: Math.round(localAnalysis.blueWinProbability * 0.8), 
+            blue_synergy_score: Math.round(localAnalysis.blueWinProbability * 0.8),
             red_synergy_score: Math.round((100 - localAnalysis.blueWinProbability) * 0.8),
             predictions: predictions,
             alerts: alerts
